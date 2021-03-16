@@ -1,11 +1,13 @@
 <?php
 
+namespace app\migrations\create;
+
 use yii\db\Migration;
 
 /**
  * Таблица пользователей
  */
-class m200316_135521_create_user_table extends Migration
+class m200316_121521_create_user_table extends Migration
 {
     /**
      * {@inheritdoc}

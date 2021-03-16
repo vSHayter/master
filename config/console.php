@@ -35,6 +35,29 @@ $config = [
         ],
     ],
     */
+    'controllerMap' => [
+        // Common migrations for the whole application
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationNamespaces' => ['app\migrations'],
+            'migrationTable' => 'migration',
+            'migrationPath' => null,
+        ],
+        //create table migrations
+        'migrate-create' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationNamespaces' => ['app\migrations\create'],
+            'migrationTable' => 'migration_create',
+            'migrationPath' => null,
+        ],
+        //faker migrations
+        'migrate-faker' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationNamespaces' => ['app\migrations\faker'],
+            'migrationTable' => 'migration_faker',
+            'migrationPath' => null,
+        ],
+    ]
 ];
 
 if (YII_ENV_DEV) {

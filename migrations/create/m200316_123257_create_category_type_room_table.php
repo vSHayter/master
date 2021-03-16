@@ -1,21 +1,24 @@
 <?php
 
+namespace app\migrations\create;
+
 use yii\db\Migration;
 
 /**
- * Таблица категорий для услуг (удобств) доступных в номерах
+ * Class m200316_123257_create_category_type_room_table
  */
-class m200316_123259_create_category_room_service extends Migration
+class m200316_123257_create_category_type_room_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%category_room_service}}', [
+        $this->createTable('{{%category_type_room}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()
         ], 'engine=InnoDB');
+
     }
 
     /**
@@ -23,6 +26,6 @@ class m200316_123259_create_category_room_service extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%category_room_service}}');
+        $this->dropTable('{{%category_type_room}}');
     }
 }
