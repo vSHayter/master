@@ -2,7 +2,6 @@
 
 namespace app\migrations\faker;
 
-use app\models\City;
 use app\models\TypeHotel;
 use Faker\Factory;
 use Yii;
@@ -25,7 +24,7 @@ class M210315100532FakerHotel extends Migration
         $hotels = [];
         for($i = 0; $i < 100; $i++) {
             $hotels[] = [
-                $faker->name(),
+                $faker->word(),
                 $faker->text(100),
                 $faker->phoneNumber,
                 rand(1, 1000),

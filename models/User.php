@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "user".
@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $surname
  * @property string|null $patronymic
+ * @property string|null $phone
  * @property string|null $email
  * @property string|null $password_hash
  * @property int|null $status
@@ -20,7 +21,7 @@ use Yii;
  * @property Favourite[] $favourites
  * @property Like[] $likes
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -37,7 +38,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['status'], 'integer'],
-            [['username', 'name', 'surname', 'patronymic', 'email', 'password_hash'], 'string', 'max' => 255],
+            [['username', 'name', 'surname', 'patronymic', 'phone', 'email', 'password_hash'], 'string', 'max' => 255],
         ];
     }
 
@@ -52,6 +53,7 @@ class User extends \yii\db\ActiveRecord
             'name' => 'Name',
             'surname' => 'Surname',
             'patronymic' => 'Patronymic',
+            'phone' => 'Phone',
             'email' => 'Email',
             'password_hash' => 'Password Hash',
             'status' => 'Status',
@@ -86,5 +88,48 @@ class User extends \yii\db\ActiveRecord
     public function getLikes()
     {
         return $this->hasMany(Like::className(), ['id_user' => 'id']);
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        //return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        //return $this->auth_key;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        //return $this->getAuthKey() === $authKey;
+    }
+
+    public static function findByUsername($username) {
+        return User::findOne(['username' => $username]);
+    }
+
+    public function validatePassword($password)
+    {
+        return $this->password_hash === sha1($password);
+    }
+
+    public function setPassword($password) {
+        $this->password_hash = sha1($password);
+    }
+
+    public function create()
+    {
+        return $this->save(false);
     }
 }

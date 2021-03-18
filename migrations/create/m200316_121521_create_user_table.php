@@ -20,6 +20,7 @@ class m200316_121521_create_user_table extends Migration
             'name' => $this->string(),
             'surname' => $this->string(),
             'patronymic' => $this->string()->defaultValue(null),
+            'phone' => $this->string(),
             'email' => $this->string(),
             'password_hash' => $this->string(),
             'status' => $this->integer()->defaultValue(0)
