@@ -132,4 +132,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return $this->save(false);
     }
+
+    public function checkLikeHotelByUser($hotel)
+    {
+        $query = Like::find()->where(['id_user' => $this->id])
+            ->andWhere(['id_hotel' => $hotel])
+            ->one();
+
+        if ($query != null)
+            return true;
+        else
+            return false;
+    }
 }

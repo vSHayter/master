@@ -11,7 +11,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $description
  *
- * @property Hotel[] $hotels
+ * @property Hotel[] $hotel
  * @property ParameterType[] $parameterTypes
  */
 class TypeHotel extends \yii\db\ActiveRecord

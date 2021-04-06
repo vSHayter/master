@@ -12,7 +12,7 @@ use Yii;
  * @property int|null $id_country
  *
  * @property Country $country
- * @property Hotel[] $hotels
+ * @property Hotel[] $hotel
  */
 class City extends \yii\db\ActiveRecord
 {

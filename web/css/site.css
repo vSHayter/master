@@ -113,3 +113,18 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+.hotel-link {
+    color: #212529;
+}
+
+.hotel-link:link {
+    text-decoration: none;
+    color: #212529;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    max-height: 15%;
+    margin-top: 31%;
+}

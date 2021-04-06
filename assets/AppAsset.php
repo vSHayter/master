@@ -23,6 +23,9 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/live-search.js',
+        'js/needs-validation.js',
+        'js/like.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

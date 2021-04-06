@@ -38,20 +38,27 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Home', 'url' => ['/']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/auth/login']]
             ) : (
-                '<li>'
-                . Html::beginForm(['/auth/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
+            ['label' => ''. Yii::$app->user->identity->username . '',
+                'items' => [
+                    ['label' => 'Profile', 'url' => ['/user/profile']],
+                    ['label' => 'Favourites', 'url' => ['/user/favourite']],
+                    ['label' => 'Liked', 'url' => ['/user/liked']],
+                    ['label' => 'Logout', 'url' => ['/auth/logout'], 'options' => ['method' => 'post']],
+                ]]
+//                '<li>'
+//                . Html::beginForm(['/auth/logout'], 'post')
+//                . Html::submitButton(
+//                    'Logout (' . Yii::$app->user->identity->username . ')',
+//                    ['class' => 'btn btn-link logout']
+//                )
+//                . Html::endForm()
+//                . '</li>'
             )
         ],
     ]);
@@ -71,7 +78,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
     </div>
 </footer>
 
