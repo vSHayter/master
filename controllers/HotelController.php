@@ -3,6 +3,7 @@
 
 namespace app\controllers;
 
+use app\models\Booking;
 use app\models\Hotel;
 use app\models\User;
 use Yii;
@@ -52,8 +53,17 @@ class HotelController extends Controller
     {
         $query = Hotel::find()->where(['id' => $id])->one();
 
+        $booking = Booking::find()->joinWith('room')
+            ->where(['id_user' => Yii::$app->user->id])
+            ->andWhere(['id_hotel' => $id])
+            ->andWhere(['status' => 1])
+            ->orderBy('date_end DESC')
+            ->limit(1)
+            ->one();
+
         return $this->render('single', [
             'hotel' => $query,
+            'booking' => $booking
         ]);
     }
 }

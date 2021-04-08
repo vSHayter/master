@@ -128,3 +128,7 @@ a.desc:after {
     max-height: 15%;
     margin-top: 31%;
 }
+
+.reviews .row {
+    margin-left: 15px;
+}

@@ -6,6 +6,8 @@
 
 use yii\helpers\Url;
 
+$this->title = 'Hotels';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 

@@ -8,7 +8,7 @@ use yii\helpers\Url;
 $this->title = 'Master';
 ?>
 
-<script type="text/javascript" src="js/jquery.min.js"></script
+<script type="text/javascript" src="js/jquery.min.js"></script>
 
 <div class="site-index">
     <!--    <div class="jumbotron">-->
