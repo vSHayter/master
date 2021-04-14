@@ -27,7 +27,7 @@ class M210315100538FakerRoom extends Migration
         for($i = 0; $i < 200; $i++) {
             $rooms[] = [
                 rand(1, 8),
-                $faker->randomFloat(2, 10, 99999),
+                $faker->randomFloat(2, 10, 9999),
                 rand(20, 150),
                 rand(1, 10),
                 $faker->text(100),

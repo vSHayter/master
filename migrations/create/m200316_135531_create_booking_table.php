@@ -20,6 +20,8 @@ class m200316_135531_create_booking_table extends Migration
             'date_start' => $this->date(),
             'date_end' => $this->date(),
             'wishes' => $this->text(), //пожелания
+            'amount_room' => $this->integer(),
+            'amount_people' => $this->integer(),
             'status' => $this->integer()->defaultValue(0), //старус бронирования
             'id_user' => $this->integer(),
             'id_room' => $this->integer(),

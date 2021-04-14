@@ -24,10 +24,8 @@ class UserController extends Controller
                 $like->id_hotel = $idHotel;
                 $like->id_user = $idUser;
                 $like->save();
-                echo 'Liked';
             } else {
                 $query->delete();
-                echo 'Delete Liked';
             }
         }
     }

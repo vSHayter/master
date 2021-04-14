@@ -115,6 +115,37 @@ a.desc:after {
 }
 
 
+
+/*Like area start*/
+.like {
+    font-size: 2em;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    stroke: #fff;
+    stroke-width: 8px;
+}
+.like::before {
+     color: white;
+     content: '♥';
+     position: absolute;
+     transform: translate(-50%, -50%);
+     opacity: .8;
+ }
+.like::after {
+     color: #ff3252;
+     content: '♥';
+     position: absolute;
+     transform: translate(-50%, -50%) scale(0);
+     transition: transform 0.2s;
+}
+.liked::after {
+     transform: translate(-50%, -50%) scale(1.1);
+ }
+/*Like area end*/
+
+/*Hotel area start*/
 .hotel-link {
     color: #212529;
 }
@@ -123,12 +154,28 @@ a.desc:after {
     text-decoration: none;
     color: #212529;
 }
+/*Hotel area end*/
 
+/*Carousel area start*/
 .carousel-control-prev, .carousel-control-next {
     max-height: 15%;
-    margin-top: 31%;
+    margin-top: 25%;
 }
 
-.reviews .row {
-    margin-left: 15px;
+.carousel-item > img {
+    max-width: 100%;
+    max-height: 100%;
 }
+/*Carousel area end*/
+
+/*Rooms area start*/
+.rooms {
+    width: 100%;
+}
+/*Rooms area end*/
+
+/*Search area start*/
+.search {
+    width: 100%;
+}
+/*Search area end*/

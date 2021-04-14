@@ -12,6 +12,8 @@ use Yii;
  * @property string|null $date_start
  * @property string|null $date_end
  * @property string|null $wishes
+ * @property int|null $amount_room
+ * @property int|null $amount_people
  * @property int|null $status
  * @property int|null $id_user
  * @property int|null $id_room
@@ -39,7 +41,7 @@ class Booking extends \yii\db\ActiveRecord
         return [
             [['date_booking', 'date_start', 'date_end'], 'safe'],
             [['wishes'], 'string'],
-            [['status', 'id_user', 'id_room'], 'integer'],
+            [['amount_room', 'amount_people', 'status', 'id_user', 'id_room'], 'integer'],
             [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['id_room' => 'id']],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
@@ -56,6 +58,8 @@ class Booking extends \yii\db\ActiveRecord
             'date_start' => 'Date Start',
             'date_end' => 'Date End',
             'wishes' => 'Wishes',
+            'amount_room' => 'Amount Room',
+            'amount_people' => 'Amount People',
             'status' => 'Status',
             'id_user' => 'Id User',
             'id_room' => 'Id Room',

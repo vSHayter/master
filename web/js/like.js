@@ -14,7 +14,7 @@ function like() {
                 id: id
             },
             success: function (response) {
-                $('.like[data-id=' + id + ']').toggleClass("btn btn-danger");
+                $('.like[data-id=' + id + ']').toggleClass("liked");
             }
         });
     });

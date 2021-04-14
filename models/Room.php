@@ -24,6 +24,9 @@ use Yii;
  */
 class Room extends \yii\db\ActiveRecord
 {
+
+    public $available_room;
+
     /**
      * {@inheritdoc}
      */
@@ -112,4 +115,32 @@ class Room extends \yii\db\ActiveRecord
     {
         return $this->hasMany(RoomImage::className(), ['id_room' => 'id']);
     }
+
+    public function checkBookingRoom($idRoom, $dateStart, $dateEnd)
+    {
+        $values = [
+            'id_room' => $idRoom,
+            'date_start' => $dateStart,
+            'date_end' => $dateEnd
+        ];
+
+        $query = Room::find()
+            //->select(['booking.date_start', 'booking.date_end'])
+            //->select(['room.*', 'booking.date_start', 'booking.date_end', 'amount_room - COUNT(room.id) OVER (PARTITION BY room.id) as available_room'])
+            ->select(['room.*', 'booking.date_start', 'booking.date_end', 'room.amount_room - COUNT(room.id) as available_room'])
+            ->joinWith('bookings')
+            ->where(['room.id' => $values['id_room']])
+            ->andWhere(['<', 'booking.date_start', $values['date_end']])
+            ->andWhere(['>', 'booking.date_end', $values['date_start']])
+            ->all();
+
+        if($query[0]->available_room != null)
+            if($query[0]->available_room > 0)
+                return $query[0]->available_room;
+            else
+                return false;
+        else
+            return $this->amount_room;
+    }
+
 }

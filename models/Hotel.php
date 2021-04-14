@@ -160,4 +160,16 @@ class Hotel extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Room::className(), ['id_hotel' => 'id']);
     }
+
+    public function getMinCostRoom($idHotel)
+    {
+        $query = Room::find()
+            ->where(['id_hotel' => $idHotel])
+            ->orderBy('cost')
+            ->limit(1)
+            ->one();
+
+        return $query->cost;
+
+    }
 }

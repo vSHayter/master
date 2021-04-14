@@ -60,7 +60,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $values = [
+            'checkIn' => date("Y-m-d", mktime(0,0,0, date("m"), date("d")+7, date("Y"))),
+            'checkOut' => date("Y-m-d", mktime(0,0,0, date("m"), date("d")+8, date("Y"))),
+            'travelers' => 2,
+            'room' => 1
+            ];
+
+        return $this->render('index', [
+            'values' => $values
+        ]);
     }
 
     /**

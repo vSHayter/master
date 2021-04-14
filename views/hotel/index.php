@@ -4,70 +4,98 @@
  * @var \app\models\User $user
  */
 
+use yii\bootstrap4\Carousel;
 use yii\helpers\Url;
 
 $this->title = 'Hotels';
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+$request = Yii::$app->request;
 
-<div class="row">
+?>
+<!--Search area start-->
+<div class="row no-gutters">
+    <div class="search">
+        <form action="<?= Url::to(['hotel/index']) ?>" class="needs-validation" novalidate>
+            <div class="form-row" >
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" name="cityName" id="cityName" value="<?= $request->get('cityName')?>" placeholder="Going to" required>
+                    <div class="invalid-feedback">
+                        Please choose city.
+                    </div>
+                    <input type="text" name="cityId" id="cityId" hidden="true">
+                    <div id="display"></div>
+                </div>
+                <div class="col-md-2">
+                    <input type="date" class="form-control" name="checkIn" value="<?= $request->get('checkIn'); ?>">
+                </div>
+                <div class="col-md-2">
+                    <input type="date" class="form-control" name="checkOut" value="<?= $request->get('checkOut'); ?>">
+                </div>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" value="<?= $request->get('room'); ?> room, <?= $request->get('travelers') ?> travelers">
+                    <input type="hidden" name="room" value="<?= $request->get('room'); ?>">
+                    <input type="hidden" name="travelers" value="<?= $request->get('travelers'); ?>">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-secondary btn-block">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--Search area end-->
+
+<div class="row mt-3">
     <div class="col-3 sidebar">
         Lorem ipsum dolor sit amet, j j j j j j consectetur adipisicing elit.
     </div>
-    <div class="col-9 main">
+    <div class="col-9 hotel">
         <?php foreach ($hotels as $hotel): ?>
         <div class="card mb-2">
             <div class="row no-gutters">
+
                 <div class="col-md-4">
-                    <div id="carouselHotelImage" class="carousel slide" data-ride="carousel" data-interval="false">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselHotelImage" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselHotelImage" data-slide-to="1"></li>
-                            <li data-target="#carouselHotelImage" data-slide-to="2"></li>
-                            <li data-target="#carouselHotelImage" data-slide-to="3"></li>
-                            <li data-target="#carouselHotelImage" data-slide-to="4"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://picsum.photos/280/200" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/280/210" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/280/205" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/280/203" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://picsum.photos/280/220" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselHotelImage" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselHotelImage" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                    <div class="hotel-carousel">
+                    <?php $carousel = [];?>
+                    <?php foreach ($hotel->hotelImages as $image): ?>
+                        <?php $carousel [] = [
+                            'content' => '<img src=/'.$image->image.'>',
+                            'options' => ['class' => '']
+                        ]; ?>
+                    <?php endforeach; ?>
+
+                    <?= Carousel::widget([
+                        'items' => $carousel,
+                        'options' => ['class' => 'carousel slide', 'data-interval' => "false"],
+                    ]); ?>
                     <?php if ($user):?>
                             <?php if ($user->checkLikeHotelByUser($hotel->id)): ?>
-                                <button class="like btn btn-danger" data-id="<?=$hotel->id?>" id="like">♥</button>
+                                <a class="like liked" data-id="<?=$hotel->id?>">
+                                    <i class="fa fa-heard" aria-hidden="true"></i>
+                                </a>
                             <?php else: ?>
-                                <button class="like" data-id="<?=$hotel->id?>" id="like">♥</button>
+                                <a class="like" data-id="<?=$hotel->id?>">
+                                    <i class="fa fa-heard" aria-hidden="true"></i>
+                                </a>
                             <?php endif; ?>
                     <?php endif; ?>
                 </div>
+                </div>
+
                 <div class="col-md-8">
-                    <a href="<?= Url::toRoute(['hotel/single', 'id' => $hotel->id])?>" class="hotel-link">
+                    <a href="<?= Url::current(['hotel/single', 'idHotel' => $hotel->id])?>" class="hotel-link">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $hotel->name; ?> ID = <?= $hotel->id; ?></h5>
+                        <h5 class="card-title"><?= $hotel->name; ?></h5>
                         <p class="card-text"><?= $hotel->description; ?></p>
-                        <p class="card-text"><small class="text-muted">Последнее обновление: 3 мин. назад</small></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="card-text"><small class="text-muted">Последнее обновление: 3 мин. назад</small></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="card-text text-right cost"><strong>$<?= $hotel->getMinCostRoom($hotel->id); ?></strong></p>
+                                <p class="card-text text-right"><small>per night</small></p>
+                            </div>
+                        </div>
                     </div>
                     </a>
                 </div>
