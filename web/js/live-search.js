@@ -14,7 +14,7 @@ $(document).ready(function() {
             } else {
                 $.ajax({
                     type: "POST",
-                    url: "city/search",
+                    url: location.origin + "/city/search",
                     data: {
                         search: name
                     },
@@ -27,6 +27,12 @@ $(document).ready(function() {
     });
 });
 
+$(document).on('click', function (e) {
+    if ($(e.target).closest("#display").length === 0) {
+        $("#display").hide();
+    }
+});
+
 function fillCityName(Value) {
     $('#cityName').val(Value);
     $('#display').hide();
@@ -36,3 +42,4 @@ function fillCityId(Value) {
     $('#cityId').val(Value);
     $('#display').hide();
 }
+

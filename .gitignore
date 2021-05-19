@@ -37,3 +37,6 @@ tests/_support/_generated
 
 #image folder
 /web/img
+
+#tmp.txt file
+tmp.txt

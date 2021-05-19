@@ -18,10 +18,10 @@ class CityController extends Controller
                 ->limit(10)
                 ->all();
 
-            echo '<ul>';
+//            echo '<ul class="list-group">';
 
             foreach ($query as $city): ?>
-                <li onclick='fillCityName("<?= $city['name']; ?>"); fillCityId("<?= $city['id']; ?>");'>
+                <li class="list-group-item" onclick='fillCityName("<?= $city['name']; ?> (<?= $city->country->name; ?>)"); fillCityId("<?= $city['id']; ?>");'>
                     <a>
                         <?= $city->name . '(' . $city->country->name . ')' ?>
                     </a>

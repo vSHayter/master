@@ -12,6 +12,15 @@ $this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
 
 ?>
+
+<?= $this->render('/partials/parameter-modal', [
+        'values' => [
+            'travelers' => $request->get('travelers'),
+            'room' => $request->get('room')
+        ]
+]);
+?>
+
 <!--Search area start-->
 <div class="row no-gutters">
     <div class="search">
@@ -23,7 +32,10 @@ $request = Yii::$app->request;
                         Please choose city.
                     </div>
                     <input type="text" name="cityId" id="cityId" hidden="true">
-                    <div id="display"></div>
+                    <div class="list-city" id="display">
+                        <ul class="list-group">
+
+                    </div>
                 </div>
                 <div class="col-md-2">
                     <input type="date" class="form-control" name="checkIn" value="<?= $request->get('checkIn'); ?>">
@@ -32,7 +44,11 @@ $request = Yii::$app->request;
                     <input type="date" class="form-control" name="checkOut" value="<?= $request->get('checkOut'); ?>">
                 </div>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" value="<?= $request->get('room'); ?> room, <?= $request->get('travelers') ?> travelers">
+                    <label type="text" class="form-control" data-toggle="modal" data-target="#parametersModal">
+                        <span class="count" id="travelers"><?= $request->get('travelers') ?> travelers</span>
+                        <span class="count" id="room"><?= $request->get('room'); ?> room </span>
+                    </label>
+
                     <input type="hidden" name="room" value="<?= $request->get('room'); ?>">
                     <input type="hidden" name="travelers" value="<?= $request->get('travelers'); ?>">
                 </div>
