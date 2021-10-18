@@ -5,23 +5,24 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "like".
+ * This is the model class for table "rating".
  *
- * @property int $id
  * @property int|null $id_user
  * @property int|null $id_hotel
+ * @property float|null $rating
+ * @property string|null $timestamp
  *
  * @property Hotel $hotel
  * @property User $user
  */
-class Like extends \yii\db\ActiveRecord
+class Rating extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'like';
+        return 'rating';
     }
 
     /**
@@ -31,8 +32,10 @@ class Like extends \yii\db\ActiveRecord
     {
         return [
             [['id_user', 'id_hotel'], 'integer'],
-            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::className(), 'targetAttribute' => ['id_hotel' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
+            [['rating'], 'number'],
+            [['timestamp'], 'string', 'max' => 255],
+            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::class, 'targetAttribute' => ['id_hotel' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -42,9 +45,10 @@ class Like extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'id_user' => 'Id User',
             'id_hotel' => 'Id Hotel',
+            'rating' => 'Rating',
+            'timestamp' => 'Timestamp',
         ];
     }
 
@@ -55,7 +59,7 @@ class Like extends \yii\db\ActiveRecord
      */
     public function getHotel()
     {
-        return $this->hasOne(Hotel::className(), ['id' => 'id_hotel']);
+        return $this->hasOne(Hotel::class, ['id' => 'id_hotel']);
     }
 
     /**
@@ -65,6 +69,6 @@ class Like extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
+        return $this->hasOne(User::class, ['id' => 'id_user']);
     }
 }

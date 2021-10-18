@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\controllers;
-
 
 use app\models\LoginForm;
 use app\models\SignUpForm;

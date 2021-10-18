@@ -27,12 +27,13 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+    <header>
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'fixed-top navbar-expand-lg navbar-dark bg-dark',
+            'class' => 'navbar-expand-lg navbar-dark bg-dark', //fixed-top
         ],
     ]);
     echo Nav::widget([
@@ -47,8 +48,10 @@ AppAsset::register($this);
             ['label' => ''. Yii::$app->user->identity->username . '',
                 'items' => [
                     ['label' => 'Profile', 'url' => ['/user/profile']],
-                    ['label' => 'Favourites', 'url' => ['/user/favourite']],
-                    ['label' => 'Liked', 'url' => ['/user/liked']],
+                    ['label' => 'Favourites', 'url' => ['/user/favourites']],
+                    ['label' => 'Trips', 'url' => ['/user/trips']],
+                    ['label' => 'Ratings', 'url' => ['/user/ratings']],
+                    ['label' => 'Feedbacks', 'url' => ['/user/feedbacks']],
                     ['label' => 'Logout', 'url' => ['/auth/logout'], 'options' => ['method' => 'post']],
                 ]]
 //                '<li>'
@@ -64,21 +67,19 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+    </header>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
+    <?= $content ?>
+
 </div>
+
+
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Master <?= date('Y') ?></p>
 
-<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
+<!--       <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
     </div>
 </footer>
 

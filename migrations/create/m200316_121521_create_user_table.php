@@ -16,11 +16,11 @@ class m200316_121521_create_user_table extends Migration
     {
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
-            'username' => $this->string(),
-            'name' => $this->string(),
-            'surname' => $this->string(),
-            'patronymic' => $this->string()->defaultValue(null),
-            'phone' => $this->string(),
+            'username' => $this->string(20),
+            'name' => $this->string(30),
+            'surname' => $this->string(30)->defaultValue(null),
+            'patronymic' => $this->string(30)->defaultValue(null),
+            'phone' => $this->string(20),
             'email' => $this->string(),
             'password_hash' => $this->string(),
             'status' => $this->integer()->defaultValue(0)

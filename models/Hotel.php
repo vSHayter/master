@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string|null $name
  * @property string|null $description
+ * @property int|null $stars
  * @property string|null $phone_number
  * @property string|null $house_number
  * @property string|null $address
@@ -23,9 +24,8 @@ use Yii;
  * @property City $city
  * @property TypeHotel $type
  * @property HotelImage[] $hotelImages
- * @property HotelParameter[] $hotelParameters
  * @property IndexHotelService[] $indexHotelServices
- * @property Like[] $likes
+ * @property Rating[] $ratings
  * @property Room[] $rooms
  */
 class Hotel extends \yii\db\ActiveRecord
@@ -45,10 +45,12 @@ class Hotel extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['index', 'status', 'id_type', 'id_city'], 'integer'],
-            [['name', 'phone_number', 'house_number', 'address'], 'string', 'max' => 255],
-            [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['id_city' => 'id']],
-            [['id_type'], 'exist', 'skipOnError' => true, 'targetClass' => TypeHotel::className(), 'targetAttribute' => ['id_type' => 'id']],
+            [['stars', 'index', 'status', 'id_type', 'id_city'], 'integer'],
+            [['name', 'address'], 'string', 'max' => 255],
+            [['phone_number'], 'string', 'max' => 20],
+            [['house_number'], 'string', 'max' => 10],
+            [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => City::class, 'targetAttribute' => ['id_city' => 'id']],
+            [['id_type'], 'exist', 'skipOnError' => true, 'targetClass' => TypeHotel::class, 'targetAttribute' => ['id_type' => 'id']],
         ];
     }
 
@@ -61,6 +63,7 @@ class Hotel extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
+            'stars' => 'Stars',
             'phone_number' => 'Phone Number',
             'house_number' => 'House Number',
             'address' => 'Address',
@@ -78,7 +81,7 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getFavourites()
     {
-        return $this->hasMany(Favourite::className(), ['id_hotel' => 'id']);
+        return $this->hasMany(Favourite::class, ['id_hotel' => 'id']);
     }
 
     /**
@@ -88,7 +91,7 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getFeedbacks()
     {
-        return $this->hasMany(Feedback::className(), ['id_hotel' => 'id']);
+        return $this->hasMany(Feedback::class, ['id_hotel' => 'id']);
     }
 
     /**
@@ -98,7 +101,7 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(City::className(), ['id' => 'id_city']);
+        return $this->hasOne(City::class, ['id' => 'id_city']);
     }
 
     /**
@@ -108,7 +111,7 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(TypeHotel::className(), ['id' => 'id_type']);
+        return $this->hasOne(TypeHotel::class, ['id' => 'id_type']);
     }
 
     /**
@@ -118,17 +121,7 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getHotelImages()
     {
-        return $this->hasMany(HotelImage::className(), ['id_hotel' => 'id']);
-    }
-
-    /**
-     * Gets query for [[HotelParameters]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHotelParameters()
-    {
-        return $this->hasMany(HotelParameter::className(), ['id_hotel' => 'id']);
+        return $this->hasMany(HotelImage::class, ['id_hotel' => 'id']);
     }
 
     /**
@@ -138,17 +131,17 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getIndexHotelServices()
     {
-        return $this->hasMany(IndexHotelService::className(), ['id_hotel' => 'id']);
+        return $this->hasMany(IndexHotelService::class, ['id_hotel' => 'id']);
     }
 
     /**
-     * Gets query for [[Likes]].
+     * Gets query for [[Ratings]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLikes()
+    public function getRatings()
     {
-        return $this->hasMany(Like::className(), ['id_hotel' => 'id']);
+        return $this->hasMany(Rating::class, ['id_hotel' => 'id']);
     }
 
     /**
@@ -158,7 +151,7 @@ class Hotel extends \yii\db\ActiveRecord
      */
     public function getRooms()
     {
-        return $this->hasMany(Room::className(), ['id_hotel' => 'id']);
+        return $this->hasMany(Room::class, ['id_hotel' => 'id']);
     }
 
     public function getMinCostRoom($idHotel)
@@ -170,6 +163,18 @@ class Hotel extends \yii\db\ActiveRecord
             ->one();
 
         return $query->cost;
+    }
 
+    /**
+     * Get avg user ratings for hotel.
+     *
+     * @param $idHotel
+     * @return float
+     */
+    public function getUserRating($idHotel)
+    {
+        $query = Feedback::find()->select(['AVG(rating) as rating'])->where(['id_hotel' => $idHotel])->one();
+
+        return round($query->rating, 2);
     }
 }

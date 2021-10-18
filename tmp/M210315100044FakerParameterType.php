@@ -6,9 +6,9 @@ use Yii;
 use yii\db\Migration;
 
 /**
- * Class M210315100044FakerPatameterType
+ * Class M210315100044FakerParameterType
  */
-class M210315100044FakerPatameterType extends Migration
+class M210315100044FakerParameterType extends Migration
 {
     /**
      * {@inheritdoc}
@@ -23,9 +23,6 @@ class M210315100044FakerPatameterType extends Migration
             //отель
             ['звезд', 11],
             ['рейтинг', 11],
-            ['Контактное лицо', 11],
-
-
         ];
 
         Yii::$app->db->createCommand()->batchInsert('parameter_type', ['name', 'id_type'], $parameter)->execute();

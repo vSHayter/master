@@ -30,7 +30,7 @@ class Payment extends \yii\db\ActiveRecord
     {
         return [
             [['status', 'id_booking'], 'integer'],
-            [['id_booking'], 'exist', 'skipOnError' => true, 'targetClass' => Booking::className(), 'targetAttribute' => ['id_booking' => 'id']],
+            [['id_booking'], 'exist', 'skipOnError' => true, 'targetClass' => Booking::class, 'targetAttribute' => ['id_booking' => 'id']],
         ];
     }
 
@@ -53,6 +53,6 @@ class Payment extends \yii\db\ActiveRecord
      */
     public function getBooking()
     {
-        return $this->hasOne(Booking::className(), ['id' => 'id_booking']);
+        return $this->hasOne(Booking::class, ['id' => 'id_booking']);
     }
 }

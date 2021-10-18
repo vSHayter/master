@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\web\IdentityInterface;
 
 /**
@@ -19,7 +20,7 @@ use yii\web\IdentityInterface;
  *
  * @property Booking[] $bookings
  * @property Favourite[] $favourites
- * @property Like[] $likes
+ * @property Rating[] $ratings
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -38,7 +39,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['status'], 'integer'],
-            [['username', 'name', 'surname', 'patronymic', 'phone', 'email', 'password_hash'], 'string', 'max' => 255],
+            [['username', 'phone'], 'string', 'max' => 20],
+            [['name', 'surname', 'patronymic'], 'string', 'max' => 30],
+            [['email', 'password_hash'], 'string', 'max' => 255],
         ];
     }
 
@@ -67,7 +70,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getBookings()
     {
-        return $this->hasMany(Booking::className(), ['id_user' => 'id']);
+        return $this->hasMany(Booking::class, ['id_user' => 'id']);
     }
 
     /**
@@ -77,17 +80,17 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getFavourites()
     {
-        return $this->hasMany(Favourite::className(), ['id_user' => 'id']);
+        return $this->hasMany(Favourite::class, ['id_user' => 'id']);
     }
 
     /**
-     * Gets query for [[Likes]].
+     * Gets query for [[Ratings]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLikes()
+    public function getRatings()
     {
-        return $this->hasMany(Like::className(), ['id_user' => 'id']);
+        return $this->hasMany(Rating::class, ['id_user' => 'id']);
     }
 
     public static function findIdentity($id)
@@ -133,9 +136,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->save(false);
     }
 
-    public function checkLikeHotelByUser($hotel)
+    public function checkFavouriteHotelByUser($hotel)
     {
-        $query = Like::find()->where(['id_user' => $this->id])
+        $query = Favourite::find()->where(['id_user' => $this->id])
             ->andWhere(['id_hotel' => $hotel])
             ->one();
 

@@ -8,7 +8,7 @@ use yii\db\Migration;
 /**
  * Class M210315100043FakerTypeHotel
  */
-class M210315100043FakerTypeHotel extends Migration
+class M210315100040FakerTypeHotel extends Migration
 {
     /**
      * {@inheritdoc}

@@ -32,8 +32,8 @@ class IndexHotelService extends \yii\db\ActiveRecord
     {
         return [
             [['id_hotel', 'id_service', 'payment'], 'integer'],
-            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::className(), 'targetAttribute' => ['id_hotel' => 'id']],
-            [['id_service'], 'exist', 'skipOnError' => true, 'targetClass' => ServiceHotel::className(), 'targetAttribute' => ['id_service' => 'id']],
+            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::class, 'targetAttribute' => ['id_hotel' => 'id']],
+            [['id_service'], 'exist', 'skipOnError' => true, 'targetClass' => ServiceHotel::class, 'targetAttribute' => ['id_service' => 'id']],
         ];
     }
 
@@ -57,7 +57,7 @@ class IndexHotelService extends \yii\db\ActiveRecord
      */
     public function getHotel()
     {
-        return $this->hasOne(Hotel::className(), ['id' => 'id_hotel']);
+        return $this->hasOne(Hotel::class, ['id' => 'id_hotel']);
     }
 
     /**
@@ -67,6 +67,6 @@ class IndexHotelService extends \yii\db\ActiveRecord
      */
     public function getService()
     {
-        return $this->hasOne(ServiceHotel::className(), ['id' => 'id_service']);
+        return $this->hasOne(ServiceHotel::class, ['id' => 'id_service']);
     }
 }

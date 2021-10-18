@@ -16,9 +16,9 @@ class m200316_135050_create_room_table extends Migration
     {
         $this->createTable('{{%room}}', [
             'id' => $this->primaryKey(),
-            'amount_people' => $this->integer(), //кол-во человек
+            'amount_people' => $this->integer(3), //кол-во человек
             'cost' => $this->float(), //стоимость за ночь
-            'area' => $this->integer()->defaultValue('0'), //площадь
+            'area' => $this->integer(5)->defaultValue('0'), //площадь
             'amount_room' => $this->integer()->defaultValue('0'), //кол-во таких номеров
             'description' => $this->text(), //описание номера
             'id_type' => $this->integer(),

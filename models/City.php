@@ -12,7 +12,7 @@ use Yii;
  * @property int|null $id_country
  *
  * @property Country $country
- * @property Hotel[] $hotel
+ * @property Hotel[] $hotels
  */
 class City extends \yii\db\ActiveRecord
 {
@@ -32,7 +32,7 @@ class City extends \yii\db\ActiveRecord
         return [
             [['id_country'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_country'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['id_country' => 'id']],
+            [['id_country'], 'exist', 'skipOnError' => true, 'targetClass' => Country::class, 'targetAttribute' => ['id_country' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class City extends \yii\db\ActiveRecord
      */
     public function getCountry()
     {
-        return $this->hasOne(Country::className(), ['id' => 'id_country']);
+        return $this->hasOne(Country::class, ['id' => 'id_country']);
     }
 
     /**
@@ -65,6 +65,6 @@ class City extends \yii\db\ActiveRecord
      */
     public function getHotels()
     {
-        return $this->hasMany(Hotel::className(), ['id_city' => 'id']);
+        return $this->hasMany(Hotel::class, ['id_city' => 'id']);
     }
 }

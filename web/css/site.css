@@ -115,6 +115,57 @@ a.desc:after {
 }
 
 
+/*Search area start*/
+.search {
+    width: 100%;
+}
+
+.search-background {
+    min-height: 400px;
+}
+
+.search-form {
+    padding-top: 80px;
+}
+
+.search-nav {
+    position: relative;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.list-city {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+.list-group-item {
+    padding: 0.5rem 1.25rem;
+}
+.list-group-item:hover{
+    background: gray;
+}
+/*Search area end*/
+
+/*Parameters modal area start */
+.parameters-modal > .modal-dialog {
+    max-width: 350px;
+    top: 230px;
+    left: 375px;
+}
+
+.control-counter {
+    text-align: end;
+}
+
+.count {
+    outline: none;
+    max-width: 15%;
+    pointer-events: none;
+}
+/*Parameters modal area end */
 
 /*Like area start*/
 .like {
@@ -145,6 +196,30 @@ a.desc:after {
  }
 /*Like area end*/
 
+/*Site body area start*/
+
+
+.offer {
+    margin-top: 48px;
+}
+
+.dark_block {
+    background: linear-gradient(
+            270deg,
+            rgba(0,1,1,0) 5rem,
+            rgba(0,1,1,0.2),
+            rgba(0,1,1,0.3));
+    width:100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+}
+
+.offer-card {
+    text-shadow: 0 1px 2px rgb(0 11 38 / 80%);
+}
+/*Site body area end*/
+
 /*Hotel area start*/
 .hotel-link {
     color: #212529;
@@ -154,70 +229,99 @@ a.desc:after {
     text-decoration: none;
     color: #212529;
 }
-/*Hotel area end*/
 
 /*Carousel area start*/
+.hotel-carousel,
+.hotel-carousel > .carousel,
+.hotel-carousel > .carousel > .carousel-inner,
+.hotel-carousel > .carousel > .carousel-inner > .carousel-item {
+    height: 208px;
+}
+
 .carousel-control-prev, .carousel-control-next {
     max-height: 15%;
     margin-top: 25%;
 }
 
 .carousel-item > img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
 }
 /*Carousel area end*/
+/*Hotel area end*/
+
+/*Sidebar area start */
+.sidebar-category {
+    margin-bottom: 15px;
+}
+/*Sidebar area end */
 
 /*Rooms area start*/
 .rooms {
     width: 100%;
 }
+
+.room-image {
+    height: 350px;
+    object-fit: cover;
+}
+
+.room-modal {
+    max-width: 100%;
+}
 /*Rooms area end*/
 
-/*Search area start*/
-.search {
-    width: 100%;
+a {
+    color: black;
 }
 
-/*.search-img {*/
-/*    right: 0;*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*}*/
-/*.search-img img {*/
-/*    max-width: 100%;*/
-/*    max-height: 100%;*/
-/*}*/
-
-.list-city {
-    position: absolute;
-    width: 100%;
-    z-index: 1;
+.card-tmp {
+    padding: 1.25rem 1.25rem 0 1.25rem;
 }
 
-.list-group-item {
-    padding: 0.5rem 1.25rem;
-}
-.list-group-item:hover{
-     background: gray;
-}
-/*Search area end*/
 
-/*Parameters modal area start */
-.parameters-modal > .modal-dialog {
-    max-width: 350px;
-    top: 150px;
-    left: 380px;
+
+
+
+
+
+
+
+
+div.stars {
+    display: inline-block
 }
 
-.control-counter {
-    text-align: end;
+input.star {
+    display: none
 }
 
-.count {
-    outline: none;
-    max-width: 15%;
-    pointer-events: none;
+label.star {
+    float: right;
+    font-size: 27px;
+    color: #4A148C;
+    transition: all .2s
 }
-/*Parameters modal area end */
+
+input.star:checked~label.star:before {
+    content: '★';
+    color: #FD4;
+    transition: all .25s
+}
+
+input.star-5:checked~label.star:before {
+    color: #FE7;
+    text-shadow: 0 0 20px #952
+}
+
+input.star-1:checked~label.star:before {
+    color: #F62
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3)
+}
+
+label.star:before {
+    content: '☆';
+}

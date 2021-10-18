@@ -31,8 +31,8 @@ class IndexRoomService extends \yii\db\ActiveRecord
     {
         return [
             [['id_room', 'id_service'], 'integer'],
-            [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['id_room' => 'id']],
-            [['id_service'], 'exist', 'skipOnError' => true, 'targetClass' => ServiceRoom::className(), 'targetAttribute' => ['id_service' => 'id']],
+            [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::class, 'targetAttribute' => ['id_room' => 'id']],
+            [['id_service'], 'exist', 'skipOnError' => true, 'targetClass' => ServiceRoom::class, 'targetAttribute' => ['id_service' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class IndexRoomService extends \yii\db\ActiveRecord
      */
     public function getRoom()
     {
-        return $this->hasOne(Room::className(), ['id' => 'id_room']);
+        return $this->hasOne(Room::class, ['id' => 'id_room']);
     }
 
     /**
@@ -65,6 +65,6 @@ class IndexRoomService extends \yii\db\ActiveRecord
      */
     public function getService()
     {
-        return $this->hasOne(ServiceRoom::className(), ['id' => 'id_service']);
+        return $this->hasOne(ServiceRoom::class, ['id' => 'id_service']);
     }
 }

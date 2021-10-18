@@ -5,24 +5,25 @@ namespace app\migrations\create;
 use yii\db\Migration;
 
 /**
- * Таблица для понравившегося пользователю
+ * Class m210316091859createratingtable
  */
-class m200324_153446_create_like_table extends Migration
+class m210316_091859_create_rating_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%like}}', [
-            'id' => $this->primaryKey(),
+        $this->createTable('{{%rating}}', [
             'id_user' => $this->integer(),
             'id_hotel' => $this->integer(),
+            'rating' => $this->float(),
+            'timestamp' => $this->string()->defaultValue(null),
         ], 'engine=InnoDB');
 
         $this->addForeignKey(
-            'fk_like_user',
-            'like',
+            'fk_rating_user',
+            'rating',
             'id_user',
             'user',
             'id',
@@ -30,8 +31,8 @@ class m200324_153446_create_like_table extends Migration
         );
 
         $this->addForeignKey(
-            'fk_like_hotel',
-            'like',
+            'fk_rating_hotel',
+            'rating',
             'id_hotel',
             'hotel',
             'id',
@@ -44,9 +45,6 @@ class m200324_153446_create_like_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('fk_like_user', 'like');
-        $this->dropForeignKey('fk_like_hotel', 'like');
-
-        $this->dropTable('{{%like}}');
+        $this->dropTable('{{%rating}}');
     }
 }

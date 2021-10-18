@@ -37,8 +37,8 @@ class Feedback extends \yii\db\ActiveRecord
             [['rating'], 'number'],
             [['date'], 'safe'],
             [['id_booking', 'id_hotel'], 'integer'],
-            [['id_booking'], 'exist', 'skipOnError' => true, 'targetClass' => Booking::className(), 'targetAttribute' => ['id_booking' => 'id']],
-            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::className(), 'targetAttribute' => ['id_hotel' => 'id']],
+            [['id_booking'], 'exist', 'skipOnError' => true, 'targetClass' => Booking::class, 'targetAttribute' => ['id_booking' => 'id']],
+            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::class, 'targetAttribute' => ['id_hotel' => 'id']],
         ];
     }
 
@@ -64,7 +64,7 @@ class Feedback extends \yii\db\ActiveRecord
      */
     public function getBooking()
     {
-        return $this->hasOne(Booking::className(), ['id' => 'id_booking']);
+        return $this->hasOne(Booking::class, ['id' => 'id_booking']);
     }
 
     /**
@@ -74,6 +74,6 @@ class Feedback extends \yii\db\ActiveRecord
      */
     public function getHotel()
     {
-        return $this->hasOne(Hotel::className(), ['id' => 'id_hotel']);
+        return $this->hasOne(Hotel::class, ['id' => 'id_hotel']);
     }
 }

@@ -22,17 +22,18 @@ class M210315100532FakerHotel extends Migration
 
         $count = 0;
         $hotels = [];
-        for($i = 0; $i < 100; $i++) {
+        for($i = 0; $i < 5; $i++) {
             $hotels[] = [
                 $faker->word(),
-                $faker->text(100),
+                $faker->text(300),
                 $faker->phoneNumber,
                 rand(1, 1000),
+
                 $faker->address,
-                rand(10000, 99999),
+                rand(83000, 89000),
                 rand(0, 1),
-                rand(1, count($type)),
-                rand(1, 2853334),
+                11,//rand(1, count($type)),
+                1//rand(1, 2853334),
             ];
             $count++;
         }

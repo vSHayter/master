@@ -7,6 +7,11 @@ use yii\web\Controller;
 
 class CityController extends Controller
 {
+    /**
+     * Search city action.
+     *
+     * @return City
+     */
     public function actionSearch()
     {
         if (isset($_POST['search'])) {
@@ -18,10 +23,8 @@ class CityController extends Controller
                 ->limit(10)
                 ->all();
 
-//            echo '<ul class="list-group">';
-
             foreach ($query as $city): ?>
-                <li class="list-group-item" onclick='fillCityName("<?= $city['name']; ?> (<?= $city->country->name; ?>)"); fillCityId("<?= $city['id']; ?>");'>
+                <li class="list-group-item" onclick='fillCityName("<?= $city['name']; ?>, <?= $city->country->name; ?>"); fillCityId("<?= $city['id']; ?>");'>
                     <a>
                         <?= $city->name . '(' . $city->country->name . ')' ?>
                     </a>

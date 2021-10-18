@@ -19,21 +19,24 @@ class M210315100538FakerRoom extends Migration
     public function safeUp()
     {
         $type = TypeRoom::find()->all();
-        $hotel = Hotel::find()->all();
         $faker = Factory::create();
 
         $count = 0;
         $rooms = [];
-        for($i = 0; $i < 200; $i++) {
+        $hotel = 1;
+        for($i = 0; $i < 30; $i++) {
             $rooms[] = [
                 rand(1, 8),
-                $faker->randomFloat(2, 10, 9999),
+                $faker->randomFloat( 0,30, 999),
                 rand(20, 150),
                 rand(1, 10),
-                $faker->text(100),
+
+                $faker->text(300),
                 rand(1, count($type)),
-                rand(1, count($hotel)),
+                $hotel++,
             ];
+            if ($hotel > 5)
+                $hotel = 1;
             $count++;
         }
 

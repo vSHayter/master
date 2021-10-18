@@ -18,12 +18,12 @@ class m200316_131213_create_hotel_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'description' => $this->text(),
-            //'stars' => $this->integer(),
-            'phone_number' => $this->string(),
-            'house_number' => $this->string(),
+            'stars' => $this->integer(4),
+            'phone_number' => $this->string(20),
+            'house_number' => $this->string(10),
             'address' => $this->string()->defaultValue('0'),
-            'index' => $this->integer(),
-            'status' => $this->integer(),
+            'index' => $this->integer(5),
+            'status' => $this->integer(3)->defaultValue('0'), //0 - not confirmed, 1 - confirmed
             'id_type' => $this->integer()->defaultValue(0),
             'id_city' => $this->integer()->defaultValue(0),
 //            'id_user' => $this->integer()->defaultValue(1)

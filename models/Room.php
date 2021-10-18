@@ -24,9 +24,6 @@ use Yii;
  */
 class Room extends \yii\db\ActiveRecord
 {
-
-    public $available_room;
-
     /**
      * {@inheritdoc}
      */
@@ -44,8 +41,8 @@ class Room extends \yii\db\ActiveRecord
             [['amount_people', 'area', 'amount_room', 'id_type', 'id_hotel'], 'integer'],
             [['cost'], 'number'],
             [['description'], 'string'],
-            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::className(), 'targetAttribute' => ['id_hotel' => 'id']],
-            [['id_type'], 'exist', 'skipOnError' => true, 'targetClass' => TypeRoom::className(), 'targetAttribute' => ['id_type' => 'id']],
+            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::class, 'targetAttribute' => ['id_hotel' => 'id']],
+            [['id_type'], 'exist', 'skipOnError' => true, 'targetClass' => TypeRoom::class, 'targetAttribute' => ['id_type' => 'id']],
         ];
     }
 
@@ -60,6 +57,7 @@ class Room extends \yii\db\ActiveRecord
             'cost' => 'Cost',
             'area' => 'Area',
             'amount_room' => 'Amount Room',
+            'available_room' => 'Available Room',
             'description' => 'Description',
             'id_type' => 'Id Type',
             'id_hotel' => 'Id Hotel',
@@ -73,7 +71,7 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getBookings()
     {
-        return $this->hasMany(Booking::className(), ['id_room' => 'id']);
+        return $this->hasMany(Booking::class, ['id_room' => 'id']);
     }
 
     /**
@@ -83,7 +81,7 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getIndexRoomServices()
     {
-        return $this->hasMany(IndexRoomService::className(), ['id_room' => 'id']);
+        return $this->hasMany(IndexRoomService::class, ['id_room' => 'id']);
     }
 
     /**
@@ -93,7 +91,7 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getHotel()
     {
-        return $this->hasOne(Hotel::className(), ['id' => 'id_hotel']);
+        return $this->hasOne(Hotel::class, ['id' => 'id_hotel']);
     }
 
     /**
@@ -103,7 +101,7 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(TypeRoom::className(), ['id' => 'id_type']);
+        return $this->hasOne(TypeRoom::class, ['id' => 'id_type']);
     }
 
     /**
@@ -113,7 +111,7 @@ class Room extends \yii\db\ActiveRecord
      */
     public function getRoomImages()
     {
-        return $this->hasMany(RoomImage::className(), ['id_room' => 'id']);
+        return $this->hasMany(RoomImage::class, ['id_room' => 'id']);
     }
 
     public function checkBookingRoom($idRoom, $dateStart, $dateEnd)
@@ -132,15 +130,15 @@ class Room extends \yii\db\ActiveRecord
             ->where(['room.id' => $values['id_room']])
             ->andWhere(['<', 'booking.date_start', $values['date_end']])
             ->andWhere(['>', 'booking.date_end', $values['date_start']])
+            ->asArray()
             ->all();
 
-        if($query[0]->available_room != null)
-            if($query[0]->available_room > 0)
-                return $query[0]->available_room;
+        if(isset($query[0]['available_room']))
+            if($query[0]['available_room'] > 0)
+                return $query[0]['available_room'];
             else
                 return false;
         else
             return $this->amount_room;
     }
-
 }

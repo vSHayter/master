@@ -18,15 +18,16 @@ class M210316104517FakerRoomService extends Migration
     public function safeUp()
     {
         $service = ServiceRoom::find()->all();
-        $room = Room::find()->all();
-
+        $room = 1;
         $count = 0;
         $roomService = [];
-        for($i = 0; $i < 200; $i++) {
+        for($i = 0; $i < 500; $i++) {
             $roomService[] = [
-                rand(1, count($room)),
+                $room++,
                 rand(1, count($service)),
             ];
+            if ($room > 30)
+                $room = 1;
             $count++;
         }
 

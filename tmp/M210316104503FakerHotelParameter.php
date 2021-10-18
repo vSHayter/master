@@ -24,9 +24,9 @@ class M210316104503FakerHotelParameter extends Migration
         $hotelParameter = [];
         for($i = 0; $i < 200; $i++) {
             $hotelParameter[] = [
-                rand(1, count($hotel)),
-                rand(1, count($parameter)),
-                rand(0, 1)
+                rand(1, 50),
+                rand(3, 4),
+                rand(1, 5)
             ];
             $count++;
         }

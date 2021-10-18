@@ -50,6 +50,6 @@ class ServiceHotel extends \yii\db\ActiveRecord
      */
     public function getIndexHotelServices()
     {
-        return $this->hasMany(IndexHotelService::className(), ['id_service' => 'id']);
+        return $this->hasMany(IndexHotelService::class, ['id_service' => 'id']);
     }
 }

@@ -16,8 +16,9 @@ class SignUpForm extends Model
     public function rules()
     {
         return [
-            [['username', 'name', 'surname', 'email', 'password', 'phone'], 'required'],
-            [['username', 'name', 'surname', 'phone'], 'string', 'min' => 3, 'max' => 20],
+            [['username', 'name', 'email', 'password', 'phone'], 'required'],
+            [['username', 'name', 'surname'], 'string', 'min' => 3, 'max' => 20],
+            [['phone'], 'number'],
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email'],
             [['username'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'username']

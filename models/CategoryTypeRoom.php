@@ -50,6 +50,6 @@ class CategoryTypeRoom extends \yii\db\ActiveRecord
      */
     public function getTypeRooms()
     {
-        return $this->hasMany(TypeRoom::className(), ['id_category' => 'id']);
+        return $this->hasMany(TypeRoom::class, ['id_category' => 'id']);
     }
 }

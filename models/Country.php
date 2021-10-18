@@ -50,6 +50,6 @@ class Country extends \yii\db\ActiveRecord
      */
     public function getCities()
     {
-        return $this->hasMany(City::className(), ['id_country' => 'id']);
+        return $this->hasMany(City::class, ['id_country' => 'id']);
     }
 }

@@ -50,6 +50,6 @@ class CategoryRoomService extends \yii\db\ActiveRecord
      */
     public function getServiceRooms()
     {
-        return $this->hasMany(ServiceRoom::className(), ['id_category' => 'id']);
+        return $this->hasMany(ServiceRoom::class, ['id_category' => 'id']);
     }
 }

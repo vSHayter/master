@@ -22,7 +22,7 @@ class M210316104453FakerHotelService extends Migration
 
         $count = 0;
         $hotelService = [];
-        for($i = 0; $i < 200; $i++) {
+        for($i = 0; $i < 100; $i++) {
             $hotelService[] = [
                 rand(1, count($hotel)),
                 rand(1, count($service)),

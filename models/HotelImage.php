@@ -31,7 +31,7 @@ class HotelImage extends \yii\db\ActiveRecord
         return [
             [['id_hotel'], 'integer'],
             [['image'], 'string', 'max' => 255],
-            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::className(), 'targetAttribute' => ['id_hotel' => 'id']],
+            [['id_hotel'], 'exist', 'skipOnError' => true, 'targetClass' => Hotel::class, 'targetAttribute' => ['id_hotel' => 'id']],
         ];
     }
 
@@ -54,6 +54,6 @@ class HotelImage extends \yii\db\ActiveRecord
      */
     public function getHotel()
     {
-        return $this->hasOne(Hotel::className(), ['id' => 'id_hotel']);
+        return $this->hasOne(Hotel::class, ['id' => 'id_hotel']);
     }
 }

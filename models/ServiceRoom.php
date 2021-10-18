@@ -32,7 +32,7 @@ class ServiceRoom extends \yii\db\ActiveRecord
         return [
             [['id_category'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryRoomService::className(), 'targetAttribute' => ['id_category' => 'id']],
+            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryRoomService::class, 'targetAttribute' => ['id_category' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class ServiceRoom extends \yii\db\ActiveRecord
      */
     public function getIndexRoomServices()
     {
-        return $this->hasMany(IndexRoomService::className(), ['id_service' => 'id']);
+        return $this->hasMany(IndexRoomService::class, ['id_service' => 'id']);
     }
 
     /**
@@ -65,6 +65,6 @@ class ServiceRoom extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(CategoryRoomService::className(), ['id' => 'id_category']);
+        return $this->hasOne(CategoryRoomService::class, ['id' => 'id_category']);
     }
 }

@@ -31,7 +31,7 @@ class RoomImage extends \yii\db\ActiveRecord
         return [
             [['id_room'], 'integer'],
             [['image'], 'string', 'max' => 255],
-            [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['id_room' => 'id']],
+            [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::class, 'targetAttribute' => ['id_room' => 'id']],
         ];
     }
 
@@ -54,6 +54,6 @@ class RoomImage extends \yii\db\ActiveRecord
      */
     public function getRoom()
     {
-        return $this->hasOne(Room::className(), ['id' => 'id_room']);
+        return $this->hasOne(Room::class, ['id' => 'id_room']);
     }
 }

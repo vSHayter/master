@@ -52,6 +52,7 @@ $config = [
 
     ],
     'params' => $params,
+    'name' => "Master"
 ];
 
 if (YII_ENV_DEV) {

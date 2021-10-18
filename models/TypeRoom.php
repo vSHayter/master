@@ -32,7 +32,7 @@ class TypeRoom extends \yii\db\ActiveRecord
         return [
             [['id_category'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryTypeRoom::className(), 'targetAttribute' => ['id_category' => 'id']],
+            [['id_category'], 'exist', 'skipOnError' => true, 'targetClass' => CategoryTypeRoom::class, 'targetAttribute' => ['id_category' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class TypeRoom extends \yii\db\ActiveRecord
      */
     public function getRooms()
     {
-        return $this->hasMany(Room::className(), ['id_type' => 'id']);
+        return $this->hasMany(Room::class, ['id_type' => 'id']);
     }
 
     /**
@@ -65,6 +65,6 @@ class TypeRoom extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(CategoryTypeRoom::className(), ['id' => 'id_category']);
+        return $this->hasOne(CategoryTypeRoom::class, ['id' => 'id_category']);
     }
 }

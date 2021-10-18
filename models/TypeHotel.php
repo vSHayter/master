@@ -11,8 +11,7 @@ use Yii;
  * @property string|null $name
  * @property string|null $description
  *
- * @property Hotel[] $hotel
- * @property ParameterType[] $parameterTypes
+ * @property Hotel[] $hotels
  */
 class TypeHotel extends \yii\db\ActiveRecord
 {
@@ -54,16 +53,6 @@ class TypeHotel extends \yii\db\ActiveRecord
      */
     public function getHotels()
     {
-        return $this->hasMany(Hotel::className(), ['id_type' => 'id']);
-    }
-
-    /**
-     * Gets query for [[ParameterTypes]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getParameterTypes()
-    {
-        return $this->hasMany(ParameterType::className(), ['id_type' => 'id']);
+        return $this->hasMany(Hotel::class, ['id_type' => 'id']);
     }
 }

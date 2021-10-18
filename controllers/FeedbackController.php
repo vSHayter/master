@@ -8,6 +8,12 @@ use yii\web\Controller;
 
 class FeedbackController extends Controller
 {
+
+    /**
+     * Review action.
+     *
+     * @return \yii\web\Response
+     */
     public function actionReview()
     {
         $values = [

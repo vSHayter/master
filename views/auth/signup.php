@@ -10,7 +10,7 @@ use yii\bootstrap4\ActiveForm;
 $this->title = 'Register';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
+<div class="container site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>Please fill out the following fields to register:</p>

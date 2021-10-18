@@ -14,6 +14,7 @@ use Yii;
  * @property string|null $wishes
  * @property int|null $amount_room
  * @property int|null $amount_people
+ * @property int|null $total
  * @property int|null $status
  * @property int|null $id_user
  * @property int|null $id_room
@@ -41,9 +42,9 @@ class Booking extends \yii\db\ActiveRecord
         return [
             [['date_booking', 'date_start', 'date_end'], 'safe'],
             [['wishes'], 'string'],
-            [['amount_room', 'amount_people', 'status', 'id_user', 'id_room'], 'integer'],
-            [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::className(), 'targetAttribute' => ['id_room' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
+            [['amount_room', 'amount_people', 'total', 'status', 'id_user', 'id_room'], 'integer'],
+            [['id_room'], 'exist', 'skipOnError' => true, 'targetClass' => Room::class, 'targetAttribute' => ['id_room' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -60,6 +61,7 @@ class Booking extends \yii\db\ActiveRecord
             'wishes' => 'Wishes',
             'amount_room' => 'Amount Room',
             'amount_people' => 'Amount People',
+            'total' => 'Total',
             'status' => 'Status',
             'id_user' => 'Id User',
             'id_room' => 'Id Room',
@@ -73,7 +75,7 @@ class Booking extends \yii\db\ActiveRecord
      */
     public function getRoom()
     {
-        return $this->hasOne(Room::className(), ['id' => 'id_room']);
+        return $this->hasOne(Room::class, ['id' => 'id_room']);
     }
 
     /**
@@ -83,7 +85,7 @@ class Booking extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
+        return $this->hasOne(User::class, ['id' => 'id_user']);
     }
 
     /**
@@ -93,7 +95,7 @@ class Booking extends \yii\db\ActiveRecord
      */
     public function getFeedbacks()
     {
-        return $this->hasMany(Feedback::className(), ['id_booking' => 'id']);
+        return $this->hasMany(Feedback::class, ['id_booking' => 'id']);
     }
 
     /**
@@ -103,6 +105,6 @@ class Booking extends \yii\db\ActiveRecord
      */
     public function getPayments()
     {
-        return $this->hasMany(Payment::className(), ['id_booking' => 'id']);
+        return $this->hasMany(Payment::class, ['id_booking' => 'id']);
     }
 }
