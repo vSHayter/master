@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\SearchForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -60,16 +61,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $values = [
-            'checkIn' => date("Y-m-d", mktime(0,0,0, date("m"), date("d")+7, date("Y"))),
-            'checkOut' => date("Y-m-d", mktime(0,0,0, date("m"), date("d")+8, date("Y"))),
-            'travelers' => 2,
-            'room' => 1
-            ];
-
-        return $this->render('index', [
-            'values' => $values
-        ]);
+        return $this->render('index');
     }
 
     /**

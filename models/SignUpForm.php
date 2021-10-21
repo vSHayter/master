@@ -4,6 +4,9 @@ namespace app\models;
 
 use yii\base\Model;
 
+/**
+ * SignUpForm is the model behind the sign up form.
+ */
 class SignUpForm extends Model
 {
     public $username;

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Booking;
 use app\models\Hotel;
+use app\models\SearchForm;
 use app\models\ServiceHotel;
 use app\models\TypeHotel;
 use app\models\User;
@@ -26,12 +27,12 @@ class HotelController extends Controller
         $user = User::findOne(Yii::$app->user->id);
 
         $values = [
-            'checkIn' => Yii::$app->request->get('checkIn'),
-            'checkOut' => Yii::$app->request->get('checkOut'),
-            'room' => Yii::$app->request->get('room'),
-            'travelers' => Yii::$app->request->get('travelers'),
-            'cityId' => Yii::$app->request->get('cityId'),
-            'cityName' => Yii::$app->request->get('cityName')
+            'checkIn' => Yii::$app->request->post()['SearchForm']['checkIn'],
+            'checkOut' => Yii::$app->request->post()['SearchForm']['checkOut'],
+            'room' => Yii::$app->request->post()['SearchForm']['room'],
+            'travelers' => Yii::$app->request->post()['SearchForm']['travelers'],
+            'cityId' => Yii::$app->request->post()['SearchForm']['cityId'],
+            'cityName' => Yii::$app->request->post()['SearchForm']['cityName'],
         ];
 
         $query = Hotel::find()->where(['status' => 1])
@@ -46,7 +47,7 @@ class HotelController extends Controller
             'user' => $user,
             'services' => $services,
             'types' => $types,
-            'reccomend' => 0
+            'model' => $values,
         ]);
     }
 

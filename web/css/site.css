@@ -150,10 +150,17 @@ a.desc:after {
 /*Search area end*/
 
 /*Parameters modal area start */
-.parameters-modal > .modal-dialog {
-    max-width: 350px;
-    top: 230px;
-    left: 375px;
+.parameters-modal {
+    position: absolute;
+    z-index: 1;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
 }
 
 .control-counter {
@@ -197,8 +204,6 @@ a.desc:after {
 /*Like area end*/
 
 /*Site body area start*/
-
-
 .offer {
     margin-top: 48px;
 }

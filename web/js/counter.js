@@ -14,9 +14,11 @@ $('.btn-number').click(function(e){
             if (parseInt(input.val()) == input.attr('min'))
                 $(this).attr('disabled', true);
             if (fieldName == 'travelers') {
-                $("#travelers").text(input.val() + ' travelers')
+                $("#travelers").val(parseInt(input.val()))
+                $("#travelersSpan").text(input.val() + ' travelers')
             } else {
-                $("#room").text(input.val() + ' room')
+                $("#room").val(parseInt(input.val()))
+                $("#roomSpan").text(input.val() + ' rooms')
             }
         } else if (type == 'plus') {
             if(currentVal < input.attr('max')) {
@@ -25,9 +27,11 @@ $('.btn-number').click(function(e){
             if(parseInt(input.val()) == input.attr('max'))
                 $(this).attr('disabled', true);
             if (fieldName == 'travelers') {
-                $("#travelers").text(input.val() + ' travelers')
+                $("#travelers").val(parseInt(input.val()))
+                $("#travelersSpan").text(input.val() + ' travelers')
             } else {
-                $("#room").text(input.val() + ' room')
+                $("#room").val(parseInt(input.val()))
+                $("#roomSpan").text(input.val() + ' rooms')
             }
         }
     }

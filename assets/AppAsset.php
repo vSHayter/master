@@ -26,7 +26,7 @@ class AppAsset extends AssetBundle
         'js/live-search.js',
         'js/needs-validation.js',
         'js/like.js',
-        'js/modal-backdrop.js',
+        'js/parameters.js',
         'js/counter.js'
     ];
     public $depends = [
