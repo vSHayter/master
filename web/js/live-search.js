@@ -1,8 +1,8 @@
-var searchTimeout;
+let searchTimeout;
 
 $(document).ready(function() {
     $("#cityName").on('keyup', function() {
-        var name = $('#cityName').val();
+        let name = $('#cityName').val();
 
         if (searchTimeout) {
             clearTimeout(searchTimeout);
@@ -19,7 +19,7 @@ $(document).ready(function() {
                         search: name
                     },
                     success: function (response) {
-                        $("#display").html(response).show();
+                        $("#display").html(response);
                     }
                 });
             }

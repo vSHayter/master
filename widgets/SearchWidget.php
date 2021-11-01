@@ -3,7 +3,9 @@
 namespace app\widgets;
 
 use app\models\SearchForm;
+use DateTime;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 
 /**
  * Widget for searching by parameters
@@ -12,29 +14,36 @@ use yii\base\Widget;
 class SearchWidget extends Widget
 {
     public $model;
-    public $type;
+    public $options = [];
+    public $defaultOptions = [
+        'type' => 'main',
+        'method' => 'get',
+        'action' => 'hotel/index',
+    ];
 
     public function init()
     {
-        if(!isset($this->type))
-            $this->type = 'main';
-        if(!isset($this->model)) {
-            $this->model = new SearchForm();
-            $this->model->checkIn = date("Y-m-d", mktime(0,0,0, date("m"), date("d")+7, date("Y")));
-            $this->model->checkOut = date("Y-m-d", mktime(0,0,0, date("m"), date("d")+8, date("Y")));
-            $this->model->travelers = 2;
-            $this->model->room = 1;
+        if(empty($this->options)) {
+            $this->options = $this->defaultOptions;
         } else {
-            $this->model = new SearchForm($this->model);
+            $this->options = ArrayHelper::merge($this->defaultOptions, $this->options);
         }
 
+        if(!isset($this->model)) {
+            $this->model = new SearchForm();
+            $dateTime = new DateTime();
+            $this->model->checkIn = $dateTime->modify('+7 days')->format('Y-m-d');
+            $this->model->checkOut = $dateTime->modify('+1 days')->format('Y-m-d');
+            $this->model->travelers = 2;
+            $this->model->room = 1;
+        }
     }
 
     public function run()
     {
         return $this->render('search', [
             'model' => $this->model,
-            'type' => $this->type
+            'options' => $this->options,
         ]);
     }
 

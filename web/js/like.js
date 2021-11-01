@@ -1,11 +1,11 @@
-jQuery(function($) {
+$(function($) {
     like();
 });
 
 function like() {
     $(document).on('click', '.like', (e) => {
         e.preventDefault();
-        var id = $(e.target).data('id');
+        let id = $(e.target).data('id');
 
         $.ajax({
             type: "POST",

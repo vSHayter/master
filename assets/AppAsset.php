@@ -24,10 +24,12 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/live-search.js',
-        'js/needs-validation.js',
         'js/like.js',
         'js/parameters.js',
-        'js/counter.js'
+        'js/counter.js',
+        'js/modal-booking.js',
+        'js/modal-room.js',
+        'js/modal-exception.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

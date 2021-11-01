@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "booking".
  *
@@ -40,6 +38,10 @@ class Booking extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['date_start', 'date_end', 'amount_room', 'amount_people'], 'required'],
+            [['amount_room', 'amount_people'], 'integer', 'min' => 1],
+            [['amount_room'], 'integer', 'max' => 15],
+            [['amount_people'], 'integer', 'max' => 30],
             [['date_booking', 'date_start', 'date_end'], 'safe'],
             [['wishes'], 'string'],
             [['amount_room', 'amount_people', 'total', 'status', 'id_user', 'id_room'], 'integer'],

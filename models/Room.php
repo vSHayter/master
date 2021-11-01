@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "room".
  *
@@ -114,7 +112,15 @@ class Room extends \yii\db\ActiveRecord
         return $this->hasMany(RoomImage::class, ['id_room' => 'id']);
     }
 
-    public function checkBookingRoom($idRoom, $dateStart, $dateEnd)
+    /**
+     * Check room availability.
+     *
+     * @param $idRoom
+     * @param $dateStart
+     * @param $dateEnd
+     * @return false|mixed
+     */
+    public function checkRoomAvailability($idRoom, $dateStart, $dateEnd)
     {
         $values = [
             'id_room' => $idRoom,
@@ -123,9 +129,8 @@ class Room extends \yii\db\ActiveRecord
         ];
 
         $query = Room::find()
-            //->select(['booking.date_start', 'booking.date_end'])
             //->select(['room.*', 'booking.date_start', 'booking.date_end', 'amount_room - COUNT(room.id) OVER (PARTITION BY room.id) as available_room'])
-            ->select(['room.*', 'booking.date_start', 'booking.date_end', 'room.amount_room - COUNT(room.id) as available_room'])
+            ->select(['room.*', 'booking.date_start', 'booking.date_end', 'room.amount_room - SUM(booking.amount_room) as available_room'])
             ->joinWith('bookings')
             ->where(['room.id' => $values['id_room']])
             ->andWhere(['<', 'booking.date_start', $values['date_end']])
@@ -133,12 +138,16 @@ class Room extends \yii\db\ActiveRecord
             ->asArray()
             ->all();
 
-        if(isset($query[0]['available_room']))
-            if($query[0]['available_room'] > 0)
+        if(isset($query[0]['available_room'])) {
+            if($query[0]['available_room'] > 0) {
                 return $query[0]['available_room'];
-            else
+            } else {
                 return false;
-        else
-            return $this->amount_room;
+            }
+        } else {
+            $amount = Room::find()->where(['id' => $idRoom])->one();
+            return $amount['amount_room'];
+        }
+
     }
 }

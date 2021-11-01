@@ -26,19 +26,13 @@ class HotelController extends Controller
         $services = ServiceHotel::find()->all();
         $user = User::findOne(Yii::$app->user->id);
 
-        $values = [
-            'checkIn' => Yii::$app->request->post()['SearchForm']['checkIn'],
-            'checkOut' => Yii::$app->request->post()['SearchForm']['checkOut'],
-            'room' => Yii::$app->request->post()['SearchForm']['room'],
-            'travelers' => Yii::$app->request->post()['SearchForm']['travelers'],
-            'cityId' => Yii::$app->request->post()['SearchForm']['cityId'],
-            'cityName' => Yii::$app->request->post()['SearchForm']['cityName'],
-        ];
+        $searchForm = new SearchForm();
+        $searchForm->load(Yii::$app->request->get());
 
         $query = Hotel::find()->where(['status' => 1])
             ->joinWith(['city'])
-            ->andFilterWhere(['id_city' => $values['cityId']])
-            ->andFilterWhere(['city.name' => current(explode(',', $values['cityName']))])
+            ->andFilterWhere(['id_city' => $searchForm['cityId']])
+            ->andFilterWhere(['city.name' => current(explode(',', $searchForm['cityName']))])
             ->limit(3)
             ->all();
 
@@ -47,7 +41,7 @@ class HotelController extends Controller
             'user' => $user,
             'services' => $services,
             'types' => $types,
-            'model' => $values,
+            'searchForm' => $searchForm,
         ]);
     }
 
@@ -61,6 +55,9 @@ class HotelController extends Controller
     {
         $query = Hotel::find()->where(['id' => $idHotel])->one();
 
+        $searchForm = new SearchForm();
+        $searchForm->load(Yii::$app->request->get());
+
         //For feedback if user booking room in hotel
         $booking = Booking::find()->joinWith('room')
             ->where(['id_user' => Yii::$app->user->id])
@@ -73,6 +70,7 @@ class HotelController extends Controller
         return $this->render('single', [
             'hotel' => $query,
             'booking' => $booking,
+            'searchForm' => $searchForm,
         ]);
     }
 }

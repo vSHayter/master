@@ -16,17 +16,11 @@ class FeedbackController extends Controller
      */
     public function actionReview()
     {
-        $values = [
-            'feedback' => $_POST['user-feedback'],
-            'rating' => $_POST['user-rating'],
-            'date' => date("Y-m-d"),
-            'id_booking' => $_POST['booking'],
-            'id_hotel' => $_POST['hotel']
-        ];
+        $model = new Feedback();
 
-        $feedback = new Feedback();
-        $feedback->attributes = $values;
-        $feedback->save();
+        if ($model->load(Yii::$app->request->post(), 'Feedback')) {
+            $model->save();
+        }
 
         return $this->redirect(Yii::$app->request->referrer);
     }

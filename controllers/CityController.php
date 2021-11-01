@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\City;
+use Yii;
 use yii\web\Controller;
 
 class CityController extends Controller
@@ -10,26 +11,24 @@ class CityController extends Controller
     /**
      * Search city action.
      *
-     * @return City
+     * @return string
      */
     public function actionSearch()
     {
-        if (isset($_POST['search'])) {
+        if (Yii::$app->request->post('search')) {
 
-            $name = $_POST['search'];
+            $name = Yii::$app->request->post('search');
 
-            $query = City::find()
+            $citys = City::find()
                 ->where(['like', 'name', $name . '%', false])
                 ->limit(10)
                 ->all();
 
-            foreach ($query as $city): ?>
-                <li class="list-group-item" onclick='fillCityName("<?= $city['name']; ?>, <?= $city->country->name; ?>"); fillCityId("<?= $city['id']; ?>");'>
-                    <a>
-                        <?= $city->name . '(' . $city->country->name . ')' ?>
-                    </a>
-                </li>
-            <?php endforeach;
+            return $this->renderAjax('index', [
+                    'citys' => $citys
+            ]);
+        } else {
+            return $this->render('/');
         }
     }
 }

@@ -13,6 +13,12 @@ use yii\web\Controller;
 class UserController extends Controller
 {
 
+    /**
+     * Action user like hotel.
+     *
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function actionLike()
     {
         if (isset($_POST['id'])) {
@@ -93,5 +99,4 @@ class UserController extends Controller
         return $this->render('rating', [
         ]);
     }
-
 }

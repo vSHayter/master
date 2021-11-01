@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\SearchForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;

@@ -114,12 +114,7 @@ a.desc:after {
     outline: none;
 }
 
-
 /*Search area start*/
-.search {
-    width: 100%;
-}
-
 .search-background {
     min-height: 400px;
 }
@@ -236,21 +231,11 @@ a.desc:after {
 }
 
 /*Carousel area start*/
-.hotel-carousel,
-.hotel-carousel > .carousel,
-.hotel-carousel > .carousel > .carousel-inner,
-.hotel-carousel > .carousel > .carousel-inner > .carousel-item {
-    height: 208px;
-}
-
-.carousel-control-prev, .carousel-control-next {
-    max-height: 15%;
-    margin-top: 25%;
-}
-
-.carousel-item > img {
+.hotel-image > img {
     width: 100%;
     height: 100%;
+    min-height: 240px;
+    object-fit: cover;
 }
 /*Carousel area end*/
 /*Hotel area end*/
@@ -271,6 +256,13 @@ a.desc:after {
     object-fit: cover;
 }
 
+.room-image > img {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    object-fit: cover;
+}
+
 .room-modal {
     max-width: 100%;
 }
@@ -280,15 +272,27 @@ a {
     color: black;
 }
 
-.card-tmp {
-    padding: 1.25rem 1.25rem 0 1.25rem;
+.modal-fullscreen {
+    padding: 0 !important;
+}
+
+.modal-dialog > .modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+}
+
+.modal-fullscreen > .modal-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
 }
 
 
-
-
-
-
+/*.card-tmp {*/
+/*    padding: 1.25rem 1.25rem 0 1.25rem;*/
+/*}*/
 
 
 

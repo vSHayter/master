@@ -8,23 +8,24 @@
  */
 
 use app\widgets\SearchWidget;
-use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Carousel;
 use yii\helpers\Url;
 
 $this->title = 'Hotels';
-$this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
 
 ?>
 
 <div class="container pt-3">
-    <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-    ]) ?>
 
     <!--Search area start-->
-    <?= SearchWidget::widget(['model' => $model, 'type' => 'index']) ?>
+    <?= SearchWidget::widget([
+        'model' => $searchForm,
+        'options' => [
+            'type' => 'index',
+            'action' => 'hotel/index',
+        ],
+    ]) ?>
     <!--Search area end-->
 
     <div class="row mt-3">
@@ -88,7 +89,7 @@ $request = Yii::$app->request;
                             <?php foreach ($hotel->hotelImages as $image): ?>
                                 <?php $carousel [] = [
                                     'content' => '<img src=../img/'.$image->image.'>',
-                                    'options' => ['class' => '']
+                                    'options' => ['class' => 'hotel-image']
                                 ]; ?>
                             <?php endforeach; ?>
 
@@ -118,22 +119,7 @@ $request = Yii::$app->request;
                             <p class="card-text mb-1"><small class="text-muted"><?= $hotel->city->name . ', ' . $hotel->city->country->name ?></small></p>
                             <p class="card-text mb-1"><?= substr($hotel->description, 0, 337) . '...' ?></p>
                             <div class="row justify-content-sm-between">
-                                <div class="col-md-6 d-flex justify-content-lg-start"
-                                <div class="stars">
-                                    <form action="">
-                                        <input class="star star-5" id="star-5" type="radio" name="star"/>
-                                        <label class="star star-5 mb-0" for="star-5"></label>
-                                        <input class="star star-4" id="star-4" type="radio" name="star" />
-                                        <label class="star star-4 mb-0" for="star-4"></label>
-                                        <input class="star star-3" id="star-3" type="radio" name="star" />
-                                        <label class="star star-3 mb-0" for="star-3"></label>
-                                        <input class="star star-2" id="star-2" type="radio" name="star" />
-                                        <label class="star star-2 mb-0" for="star-2"></label>
-                                        <input class="star star-1" id="star-1" type="radio" name="star" />
-                                        <label class="star star-1 mb-0" for="star-1"></label>
-                                    </form>
-                                </div>
-                                <div class="col-md-6 d-flex justify-content-lg-end">
+                                <div class="col-md d-flex justify-content-lg-end">
                                     <p class="card-text text-right cost mt-2 "><strong>$<?= $hotel->getMinCostRoom($hotel->id) . ' ' ?> </strong></p>
                                     <p class="card-text text-right mt-2 "><small>за ночь</small></p>
                                 </div>

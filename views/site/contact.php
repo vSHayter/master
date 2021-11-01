@@ -9,7 +9,6 @@ use yii\bootstrap4\ActiveForm;
 use yii\captcha\Captcha;
 
 $this->title = 'Contact';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container site-contact">
     <h1><?= Html::encode($this->title) ?></h1>

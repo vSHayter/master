@@ -3,8 +3,8 @@ $('.btn-number').click(function(e){
 
     fieldName = $(this).attr('data-field');
     type = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
-    var currentVal = parseInt(input.val());
+    let input = $("input[name='"+fieldName+"']");
+    let currentVal = parseInt(input.val());
 
     if (!isNaN(currentVal)) {
         if (type == 'minus') {

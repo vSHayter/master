@@ -2,6 +2,7 @@
 
 /**
  * @var $model \app\models\SearchForm
+ * @var $options array
  */
 
 use app\widgets\ParametersWidget;
@@ -10,21 +11,23 @@ use yii\bootstrap4\Html;
 
 ?>
 
-<?php $form = ActiveForm::begin([
-    'action' => ['hotel/index'],
+<?php
+$form = ActiveForm::begin([
+    'method' => $options['method'],
+    'action' => [$options['action']],
     'id' => 'search-form',
     'fieldConfig' => [
         'template' => '{input}',
     ]
 ]); ?>
-<div class="form-row" >
+<div class="form-row mt-3">
+    <?php if($options['type'] !== 'single'):?>
     <div class="col-lg">
         <?= $form->field($model, 'cityName', ['options' => ['class' => 'from-group mb-0']])->textInput(['id' => 'cityName','placeholder' => 'Going to']) ?>
         <?= $form->field($model, 'cityId', ['options' => ['class' => 'from-group invisible']])->hiddenInput(['id' => 'cityId']); ?>
-        <div class="list-city" id="display">
-            <ul class="list-group">
-        </div>
+        <div class="list-city" id="display"></div>
     </div>
+    <?php endif;?>
     <div class="col-lg-2">
         <?= $form->field($model, 'checkIn')->input('date') ?>
     </div>
@@ -41,14 +44,14 @@ use yii\bootstrap4\Html;
         <?= ParametersWidget::widget(['travelers' => $model['travelers'], 'room' => $model['room']]) ?>
     </div>
 
-    <?php if($type == 'index'):?>
+    <?php if($options['type'] !== 'main'):?>
     <div class="col-md-2">
         <?= Html::submitButton('Search', ['class' => 'btn btn-outline-secondary btn-block'])?>
     </div>
     <?php endif;?>
 </div>
 
-<?php if($type == 'main'):?>
+<?php if($options['type'] === 'main'):?>
     <div class="col text-center">
         <?= Html::submitButton('Search', ['class' => 'mt-3 btn btn-outline-secondary'])?>
     </div>

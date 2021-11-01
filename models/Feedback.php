@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "feedback".
  *
@@ -33,6 +31,7 @@ class Feedback extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['feedback', 'rating'], 'required'],
             [['feedback'], 'string'],
             [['rating'], 'number'],
             [['date'], 'safe'],
